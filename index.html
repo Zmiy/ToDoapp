@@ -34,7 +34,11 @@
                         {{todoItem.getFullText()}}
                     </label>
                     <!-- <span class="nodisplay"><button type="button" data-toggle="modal" data-target="#modelId" class="btn" >&#x2718</button></span> -->
-                    <span class="nodisplay" data-toggle="modal" data-target="#modelId">&#x2718</span>
+                    <div ng-switch on="todoItem.isFinished">
+                        <span class="nodisplay" ng-switch-when ="true" <!-- ng-click="remove($index)" --></span>>&#x2718</span>        
+                        <span class="nodisplay" ng-switch-when ="false" data-toggle="modal" data-target="#modelId">&#x2718</span>        
+                    </div>
+                    
                     <!-- ng-click="remove($index)" -->
                 </div>
 
@@ -60,7 +64,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary">Ok</button>
+                        <button type="button" class="btn btn-primary" ng-click="remove($index)">Ok</button>
                     </div>
                 </div>
             </div>
