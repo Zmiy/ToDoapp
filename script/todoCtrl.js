@@ -47,7 +47,7 @@ app.controller("todoCtrl",function($scope){
     $scope.btnFilterClick=function(filter, obj)
     {
         $scope.filterBy=filter;
-        alert(obj.target.id);
+    
     }
     $scope.filterByFinished=function(todoItem)
     {
@@ -68,9 +68,23 @@ app.controller("todoCtrl",function($scope){
 
         } 
     }
-    $scope.remove=function(index)
+    $scope.remove=function(todoItem)
     {
-        $scope.todoList.splice(index,1);
+        var index =$scope.todoList.indexOf(todoItem);
+        if (index >-1)
+        {
+            $scope.todoList.splice(index,1);
+        }
+    }
+    var removeItem="";
+    $scope.deferredRemove=function(todoItem){
+        removeItem=todoItem;
+    }
+    $scope.removeUnFinishedTodoItem=function(){
+        if (removeItem){
+            $scope.remove(removeItem);
+            removeItem="";
+        }
     }
     // function Actor(fname, lname, birthday, photoUrl, imdbUrl)
     // {

@@ -16,7 +16,7 @@
 }
 
 
-li>div:hover>span{
+li>div:hover>div>span{
     color: red;
     display:block;
 }
@@ -25,6 +25,6 @@ li>div:hover>span>button{
     display:block;
 }
 
-li>div>span:hover{
+li>div>div>span:hover{
     cursor: pointer;
 }

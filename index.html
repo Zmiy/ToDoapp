@@ -24,10 +24,32 @@
             <input type="text" class="form-control" name="txtNextToDo" id="txtNextToDo" aria-describedby="helpId"
                 placeholder="What's next" ng-model="nextToDo" ng-keypress="onEnter($event)">
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">&#x26a0; Warning!!!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cancel</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="removeUnFinishedTodoItem()">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="todoItem in todoList | filter: filterByFinished">
                 <div class="form-check">
-                    
+
                     <label class="form-check-label" ng-class="{strike : todoItem.isFinished}">
                         <input type="checkbox" class="form-check-input" name="chkbToDo" value="checkedValue"
                             ng-model="todoItem.isFinished">
@@ -35,10 +57,11 @@
                     </label>
                     <!-- <span class="nodisplay"><button type="button" data-toggle="modal" data-target="#modelId" class="btn" >&#x2718</button></span> -->
                     <div ng-switch on="todoItem.isFinished">
-                        <span class="nodisplay" ng-switch-when ="true" <!-- ng-click="remove($index)" --></span>>&#x2718</span>        
-                        <span class="nodisplay" ng-switch-when ="false" data-toggle="modal" data-target="#modelId">&#x2718</span>        
+                        <span class="nodisplay" ng-switch-when="true" ng-click="remove(todoItem)">&#x2718</span>
+                        <span class="nodisplay" ng-switch-when="false" data-toggle="modal"
+                            data-target="#modelId" ng-click="deferredRemove(todoItem)">&#x2718</span>
                     </div>
-                    
+
                     <!-- ng-click="remove($index)" -->
                 </div>
 
@@ -48,36 +71,20 @@
         <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modelId">
           Launch
         </button> -->
-        
-        <!-- Modal -->
-        <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">&#x26a0; Warning!!!</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                    </div>
-                    <div class="modal-body">
-                        Are you sure?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" ng-click="remove($index)">Ok</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+
         <div class="form-group clearfix mt-3">
             <div class="float-left">
                 <label ng-show="todoList.length > 0">{{countOfNotFinished()}} item left</label>
             </div>
             <div class="float-right">
-                <button type="button" class="btn btn-outline-primary active" id="All" ng-click="btnFilterClick('All',$event)" ng-class="{active:filterBy==='All'}">All</button>
-                <button type="button" class="btn btn-outline-primary" id="Active" ng-click="btnFilterClick('Active',$event)" ng-class="{active:filterBy==='Active'}">Active</button>
+                <button type="button" class="btn btn-outline-primary active" id="All"
+                    ng-click="btnFilterClick('All')" ng-class="{active:filterBy==='All'}">All</button>
+                <button type="button" class="btn btn-outline-primary" id="Active"
+                    ng-click="btnFilterClick('Active')" ng-class="{active:filterBy==='Active'}">Active</button>
                 <button type="button" class="btn btn-outline-primary" id="Complited"
-                    ng-click="btnFilterClick('Complited',$event)" ng-class="{active:filterBy==='Complited'}">Complited</button>
+                    ng-click="btnFilterClick('Complited')"
+                    ng-class="{active:filterBy==='Complited'}">Complited</button>
             </div>
 
         </div>
