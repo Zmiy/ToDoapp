@@ -1,0 +1,30 @@
+.strike{
+    text-decoration: line-through;
+    color: lightgray;
+}
+
+
+/* .invisible{
+    visibility: hidden;
+} */
+
+.nodisplay{
+    display:none;
+    position:absolute;
+    right:0px;
+    top:0px;
+}
+
+
+li>div:hover>span{
+    color: red;
+    display:block;
+}
+li>div:hover>span>button{
+    color: red;
+    display:block;
+}
+
+li>div>span:hover{
+    cursor: pointer;
+}
