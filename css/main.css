@@ -16,7 +16,7 @@
 }
 
 
-li>div:hover>div>span{
+ul>li>div:hover>div>span.nodisplay{
     color: red;
     display:block;
 }
