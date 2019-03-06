@@ -10,10 +10,21 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="node_modules/parse/dist/parse.min.js"></script>
+
+        <script>
+        Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
+        Parse.initialize(
+          '53dybNxQqWySd289HHFjZ9qFoiVvUS2LdL6FkdCq', // This is your Application ID
+          'o5iq2w8rtI75SuZIB8SGclnccchq7gk3XTdi39pi' // This is your Javascript key
+        );
+        </script>    
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
     <script src="script/app.js"></script>
     <script src="script/todoCtrl.js"></script>
+    <script src="script/todoSrv.js"></script>
     <link rel="stylesheet" href="css/main.css">
+
 </head>
 
 <body>
