@@ -20,6 +20,7 @@
         );
         </script>    
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-route.js"></script>
     <script src="script/app.js"></script>
     <script src="script/todoCtrl.js"></script>
     <script src="script/todoSrv.js"></script>
@@ -63,7 +64,7 @@
 
                     <label class="form-check-label" ng-class="{strike : todoItem.isFinished}">
                         <input type="checkbox" class="form-check-input" name="chkbToDo" value="checkedValue"
-                            ng-model="todoItem.isFinished">
+                            ng-model="todoItem.isFinished" ng-click="chkbIsFinished_click(todoItem)">
                         {{todoItem.getFullText()}}
                     </label>
                     <!-- <span class="nodisplay"><button type="button" data-toggle="modal" data-target="#modelId" class="btn" >&#x2718</button></span> -->

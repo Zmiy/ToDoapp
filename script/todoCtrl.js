@@ -1,35 +1,38 @@
-app.controller("todoCtrl",function($scope){
-    function ToDo(date, todoText, isFinished)
-    {
-        this.creationDate = new Date(date);
-        this.todoText = todoText;
-        this.isFinished = isFinished;
-    }
+app.controller("todoCtrl",function($scope, $location, $log, todoSrv){
+    // function ToDo(date, todoText, isFinished)
+    // {
+    //     this.creationDate = new Date(date);
+    //     this.todoText = todoText;
+    //     this.isFinished = isFinished;
+    // }
     
-    ToDo.prototype.getFullText = function(){
-        return formatDate(this.creationDate.toString()) +" " + this.todoText;
-    }
-
-    function formatDate(input) {
-        var date = new Date(input);
-        return [
-           ("0" + date.getDate()).slice(-2),
-           ("0" + (date.getMonth()+1)).slice(-2),
-           date.getFullYear(),
-           
-        ].join('/') + " " +[ " ",
-        ("0" + date.getHours()).slice(-2),
-        ("0" + date.getMinutes()).slice(-2),].join(":");
-    }
+    // ToDo.prototype.getFullText = function(){
+    //     return formatDate(this.creationDate.toString()) +" " + this.todoText;
+    // }
 
     $scope.todoList=[];
+
+    todoSrv.getToDoList().then((todoList)=>{
+        $scope.todoList=todoList;
+    },(err)=>{
+        $log.error(err);
+    }); 
+
+    
+    
 
     $scope.onEnter = function(keyEvent)
     {
     
         if (keyEvent.which === 13 && Boolean($scope.nextToDo))
         {
-            $scope.todoList.unshift(new ToDo(new Date(),$scope.nextToDo, false));
+            // $scope.todoList.unshift(new ToDo(new Date(),$scope.nextToDo, false));
+            todoSrv.makeNewToDo($scope.nextToDo, false).then(function(result){
+                $location.path("/")
+            },function(error){
+                $log.error(error);
+            });
+
             $scope.nextToDo="";
 
         }
@@ -68,6 +71,15 @@ app.controller("todoCtrl",function($scope){
 
         } 
     }
+    $scope.chkbIsFinished_click=function(todoItem)
+    {
+        todoSrv.saveToDoChange(todoItem).then(function(result){
+            $location.path("/index")
+        },function(error){
+            $log.error(error);
+        });
+
+    }
     $scope.remove=function(todoItem)
     {
         var index =$scope.todoList.indexOf(todoItem);
@@ -76,6 +88,7 @@ app.controller("todoCtrl",function($scope){
             $scope.todoList.splice(index,1);
         }
     }
+    
     var removeItem="";
     $scope.deferredRemove=function(todoItem){
         removeItem=todoItem;
